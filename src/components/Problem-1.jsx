@@ -5,14 +5,17 @@ const Problem1 = () => {
     const [show, setShow] = useState('all');
     const [name, setName] = useState(null);
     const [status, setStatus] = useState(null);
+    const [statusData, setStatusData] = useState([])
 
     const handleClick = (val) => {
         setShow(val);
     }
-    console.log(name)
+
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(event.target)
+
+        let newData = { name, status }
+        setStatusData([...statusData, newData])
     }
 
     return (
@@ -55,11 +58,47 @@ const Problem1 = () => {
                         </thead>
                         <tbody>
 
+                            {
+                                statusData?.map(s => {
+                                    let shortStatus = [];
+                                    shortStatus.push(s.status)
+                                    if (show === s.status) {
+                                        return <tr>
+                                            <td scope="col">{s?.name}</td>
+                                            <td scope="col">{s?.status}</td>
+                                        </tr>
+                                    } else if (show === s.status) {
+                                        return <tr>
+                                            <td scope="col">{s?.name}</td>
+                                            <td scope="col">{s?.status}</td>
+                                        </tr>
+                                    }
+                                    else if (show === 'all') {
+
+                                        function sortData(property) {
+                                            let sortOrder = 1;
+                                            if (property[0] === "-") {
+                                                sortOrder = -1;
+                                                property = property.substr(1);
+                                            }
+                                            return function (a, b) {
+                                                var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+                                                return result * sortOrder;
+                                            }
+                                        }
+                                        statusData.sort(sortData('status'))
+                                        return <tr>
+                                            <td scope="col">{s?.name}</td>
+                                            <td scope="col">{s?.status}</td>
+                                        </tr>
+                                    }
+                                })
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
