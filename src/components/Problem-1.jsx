@@ -59,16 +59,16 @@ const Problem1 = () => {
                         <tbody>
 
                             {
-                                statusData?.map(s => {
+                                statusData?.map((s, index) => {
                                     let shortStatus = [];
                                     shortStatus.push(s.status)
                                     if (show === s.status) {
-                                        return <tr>
+                                        return <tr key={index}>
                                             <td scope="col">{s?.name}</td>
                                             <td scope="col">{s?.status}</td>
                                         </tr>
                                     } else if (show === s.status) {
-                                        return <tr>
+                                        return <tr key={index}>
                                             <td scope="col">{s?.name}</td>
                                             <td scope="col">{s?.status}</td>
                                         </tr>
@@ -87,7 +87,7 @@ const Problem1 = () => {
                                             }
                                         }
                                         statusData.sort(sortData('status'))
-                                        return <tr>
+                                        return <tr key={index}>
                                             <td scope="col">{s?.name}</td>
                                             <td scope="col">{s?.status}</td>
                                         </tr>
